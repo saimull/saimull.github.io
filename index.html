@@ -1,9 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sai Mullangi's root</title>
+<meta charset="UTF-8">
+<title>End World Hunger?</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+    }
+
+    #yesBtn, #noBtn {
+        padding: 10px 30px;
+        font-size: 18px;
+        margin: 100px;
+        position: absolute;
+    }
+
+    #noBtn {
+        position: static; /* stays in flow */
+    }
+
+    #message {
+        margin-top: 20px;
+        font-size: 20px;
+        color: #444;
+    }
+</style>
 </head>
 <body>
-    <h1>Sai didn’t think anyone would click this far. Joke’s on him.</h1>
+
+<h1>Sai appreciates your curiosity. Please answer this question to get in touch with him!</h1>
+<h1>Are you willing to end world hunger?</h1>
+
+<button id="yesBtn">Yes</button>
+<button id="noBtn">No</button>
+
+<div id="message"></div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const message = document.getElementById("message");
+
+let noMessage = null; // store the message once
+
+// Move the Yes button when hovering
+yesBtn.addEventListener("mouseover", () => {
+    const maxX = window.innerWidth - yesBtn.offsetWidth;
+    const maxY = window.innerHeight - yesBtn.offsetHeight;
+
+    const newX = Math.random() * maxX;
+    const newY = Math.random() * maxY;
+
+    yesBtn.style.left = newX + "px";
+    yesBtn.style.top = newY + "px";
+});
+
+// Show the No message once per session
+noBtn.addEventListener("click", () => {
+    if (!noMessage) {
+        const messages = [
+            "Wow. Bold choice.",
+            "You must be the one who microwaves the ice cream.",
+            "That’s… one way to live.",
+            "Your spirit animal is probably a confused potato.",
+            "NASA just called. They want their mystery back."
+        ];
+        // pick a random one and store it
+        noMessage = messages[Math.floor(Math.random() * messages.length)];
+    }
+    message.textContent = noMessage;
+});
+</script>
+
 </body>
 </html>
