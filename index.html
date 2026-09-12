@@ -1,84 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>End World Hunger?</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: relative;
-    }
-
-    #yesBtn, #noBtn {
-        padding: 10px 30px;
-        font-size: 18px;
-        margin: 100px;
-        position: absolute;
-    }
-
-    #noBtn {
-        position: static; /* stays in flow */
-    }
-
-    #message {
-        margin-top: 20px;
-        font-size: 20px;
-        color: #444;
-    }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A practical homebuyer risk check for immigrants and first-time buyers.">
+  <meta name="theme-color" content="#0b1220">
+  <title>Homebuyer Risk Check | Sai Builds Wealth</title>
+  <style>
+    :root{--ink:#f7f8fa;--muted:#a9b2c1;--panel:#121b2b;--line:#25334a;--green:#2dd4a7;--amber:#ffbf69;--red:#ff6b6b;--blue:#5fa8ff;--bg:#08101d}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0,#162c48 0,transparent 34%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+    button,input,select{font:inherit}.shell{width:min(760px,calc(100% - 28px));margin:auto;padding:34px 0 48px}.brand{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.brand-dot{width:11px;height:11px;border-radius:50%;background:var(--green);box-shadow:0 0 20px #2dd4a799}
+    h1{font-size:clamp(2rem,7vw,4.25rem);letter-spacing:-.055em;line-height:.96;margin:28px 0 18px;max-width:700px}.lede{font-size:clamp(1rem,2.5vw,1.18rem);line-height:1.65;color:var(--muted);max-width:650px}.badge{display:inline-flex;gap:8px;align-items:center;margin-top:13px;padding:8px 12px;border:1px solid var(--line);border-radius:99px;color:#ccd5e2;font-size:.78rem}
+    .card{margin-top:28px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#142033ee,#0e1726ee);box-shadow:0 25px 80px #0007;overflow:hidden}.card-top{padding:20px 22px 15px;border-bottom:1px solid var(--line)}.progress-row{display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:.82rem}.track{height:7px;background:#253044;border-radius:99px;margin-top:12px;overflow:hidden}.bar{height:100%;width:10%;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:inherit;transition:width .3s ease}.stage{padding:26px 22px 22px;min-height:390px;display:flex;flex-direction:column}.eyebrow{font-size:.75rem;color:var(--green);font-weight:850;letter-spacing:.12em;text-transform:uppercase}.question{font-size:clamp(1.35rem,4vw,2rem);line-height:1.18;letter-spacing:-.025em;margin:10px 0 8px}.help{color:var(--muted);line-height:1.5;margin:0 0 22px;font-size:.92rem}
+    .answers{display:grid;gap:11px}.option{width:100%;padding:15px 16px;text-align:left;border:1px solid var(--line);border-radius:13px;background:#0c1523;color:var(--ink);cursor:pointer;transition:.18s ease}.option:hover,.option:focus-visible{border-color:var(--blue);transform:translateY(-1px);outline:none}.option.selected{border-color:var(--green);background:#15332e;box-shadow:0 0 0 2px #2dd4a722}.field{width:100%;padding:15px 16px;border:1px solid var(--line);border-radius:13px;background:#0c1523;color:var(--ink);outline:none}.field:focus{border-color:var(--blue);box-shadow:0 0 0 3px #5fa8ff20}.money-wrap{position:relative}.money-wrap span{position:absolute;left:16px;top:14px;color:var(--muted)}.money-wrap .field{padding-left:32px}
+    .nav{display:flex;justify-content:space-between;gap:12px;margin-top:auto;padding-top:22px}.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:800;cursor:pointer}.btn-primary{background:var(--green);color:#06231c}.btn-primary:disabled{opacity:.35;cursor:not-allowed}.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+    .result{display:none}.score-ring{width:126px;height:126px;border-radius:50%;display:grid;place-items:center;margin:4px auto 18px;background:conic-gradient(var(--green) 0deg,#253044 0);position:relative}.score-ring:after{content:"";position:absolute;inset:9px;background:#101a2a;border-radius:50%}.score-value{z-index:1;text-align:center;font-size:2rem;font-weight:900;line-height:.85}.score-value small{font-size:.68rem;color:var(--muted);display:block;margin-top:9px}.verdict{text-align:center;font-size:1.75rem;margin:0 0 8px}.verdict-copy{text-align:center;color:var(--muted);line-height:1.55;margin:0 auto 20px;max-width:570px}.budget{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0}.metric{padding:16px;border:1px solid var(--line);border-radius:14px;background:#0b1422}.metric span{display:block;color:var(--muted);font-size:.78rem;margin-bottom:5px}.metric strong{font-size:1.35rem}.flags{display:grid;gap:9px;margin-top:16px}.flag{border-left:3px solid var(--amber);background:#0b1422;padding:11px 13px;border-radius:5px 10px 10px 5px;color:#d9e0e9;font-size:.9rem;line-height:1.4}.result-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px}.fine{color:#758196;font-size:.74rem;line-height:1.55;margin:22px 2px 0;text-align:center}
+    @media(max-width:520px){.shell{padding-top:24px}.card{border-radius:19px}.stage{min-height:420px;padding:22px 17px 18px}.card-top{padding:17px}.budget{grid-template-columns:1fr}h1{margin-top:23px}}
+  </style>
 </head>
 <body>
+  <main class="shell">
+    <div class="brand"><span class="brand-dot"></span>Sai Builds Wealth</div>
+    <h1>Can you afford the house—and the risk?</h1>
+    <p class="lede">A 2-minute reality check built for first-time buyers and immigrants. Your lender measures approval. This measures how exposed your life could be after closing.</p>
+    <div class="badge">10 questions · Private · No information saved</div>
 
-<h1>Sai appreciates your curiosity. Please answer this question to get in touch with him!</h1>
-<h1>Are you willing to end world hunger?</h1>
+    <section class="card" aria-live="polite">
+      <div id="quiz">
+        <div class="card-top">
+          <div class="progress-row"><span id="stepText">Question 1 of 10</span><span id="percentText">10%</span></div>
+          <div class="track"><div class="bar" id="bar"></div></div>
+        </div>
+        <div class="stage">
+          <div class="eyebrow" id="category"></div>
+          <h2 class="question" id="question"></h2>
+          <p class="help" id="help"></p>
+          <div class="answers" id="answers"></div>
+          <div class="nav"><button class="btn btn-ghost" id="back" type="button">Back</button><button class="btn btn-primary" id="next" type="button" disabled>Next</button></div>
+        </div>
+      </div>
 
-<button id="yesBtn">Yes</button>
-<button id="noBtn">No</button>
-
-<div id="message"></div>
-
-<script>
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const message = document.getElementById("message");
-
-let noMessage = null; // store the message once
-
-// Move the Yes button when hovering
-yesBtn.addEventListener("mouseover", () => {
-    const maxX = window.innerWidth - yesBtn.offsetWidth;
-    const maxY = window.innerHeight - yesBtn.offsetHeight;
-
-    const newX = Math.random() * maxX;
-    const newY = Math.random() * maxY;
-
-    yesBtn.style.left = newX + "px";
-    yesBtn.style.top = newY + "px";
-});
-
-// Show the No message once per session
-noBtn.addEventListener("click", () => {
-    if (!noMessage) {
-        const messages = [
-            "Wow. Bold choice.",
-            "You must be the one who microwaves the ice cream.",
-            "That’s… one way to live.",
-            "Your spirit animal is probably a confused potato.",
-            "NASA just called. They want their mystery back."
-        ];
-        // pick a random one and store it
-        noMessage = messages[Math.floor(Math.random() * messages.length)];
+      <div class="stage result" id="result">
+        <div class="score-ring" id="ring"><div class="score-value"><span id="score">0</span><small>risk score</small></div></div>
+        <h2 class="verdict" id="verdict"></h2>
+        <p class="verdict-copy" id="verdictCopy"></p>
+        <div class="budget">
+          <div class="metric"><span>Safer monthly housing target</span><strong id="target"></strong></div>
+          <div class="metric"><span>Maximum at 25% take-home</span><strong id="maximum"></strong></div>
+        </div>
+        <div class="flags" id="flags"></div>
+        <div class="result-actions"><button class="btn btn-primary" id="restart" type="button">Retake check</button><button class="btn btn-ghost" id="copy" type="button">Copy result</button></div>
+        <p class="fine">Educational estimate only—not mortgage, financial, tax, legal, or immigration advice. The housing target includes principal, interest, property taxes, homeowners insurance, mortgage insurance, and HOA dues.</p>
+      </div>
+    </section>
+  </main>
+  <script>
+    const questions=[
+      {category:"Income",question:"What is your household's monthly take-home pay?",help:"Use the amount deposited after taxes and payroll deductions.",type:"money",key:"income"},
+      {category:"Debt",question:"How much do you pay toward debt every month?",help:"Include car loans, student loans, credit-card minimums, and personal loans.",type:"money",key:"debt"},
+      {category:"Emergency fund",question:"After closing, will you still have six months of essential expenses saved?",help:"Do not count your down payment or retirement account.",options:[{label:"Yes",risk:0},{label:"No",risk:16}],key:"emergency"},
+      {category:"Job stability",question:"Could your household cover the payment if one income disappeared?",help:"Answer based on today's savings and income—not a hoped-for new job.",options:[{label:"Yes",risk:0},{label:"No",risk:15}],key:"oneIncome"},
+      {category:"Immigration",question:"Is your ability to remain and work in the U.S. reasonably secure for the next two years?",help:"Consider visa runway, renewals, job sponsorship, and a realistic backup plan.",options:[{label:"Yes",risk:0},{label:"No or uncertain",risk:14}],key:"status"},
+      {category:"Time horizon",question:"Do you expect to keep this home for at least five years?",help:"Selling early can make transaction costs and market swings more painful.",options:[{label:"Yes",risk:0},{label:"No or uncertain",risk:12}],key:"horizon"},
+      {category:"Cash reserves",question:"Can you handle a $10,000 home repair without using high-interest debt?",help:"A roof, HVAC system, deductible, or plumbing failure may not wait.",options:[{label:"Yes",risk:0},{label:"No",risk:11}],key:"repair"},
+      {category:"Budget",question:"Have you priced the full monthly payment—not just principal and interest?",help:"Include taxes, insurance, PMI, HOA dues, maintenance, and utilities.",options:[{label:"Yes",risk:0},{label:"No",risk:10}],key:"fullPayment"},
+      {category:"Lifestyle",question:"Would buying still leave room for retirement investing and your other goals?",help:"A house should not require stopping every other financial priority.",options:[{label:"Yes",risk:0},{label:"No",risk:7}],key:"goals"},
+      {category:"Exit plan",question:"If you had to leave the area, do you have a workable sell-or-rent plan?",help:"A backup plan matters, but rental income is never guaranteed.",options:[{label:"Yes",risk:0},{label:"No",risk:5}],key:"exit"}
+    ];
+    let step=0;const answers={};
+    const $=id=>document.getElementById(id);const money=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n||0);
+    function render(){
+      const q=questions[step],progress=Math.round((step+1)/questions.length*100);
+      $("stepText").textContent=`Question ${step+1} of ${questions.length}`;$("percentText").textContent=progress+"%";$("bar").style.width=progress+"%";$("category").textContent=q.category;$("question").textContent=q.question;$("help").textContent=q.help;$("answers").innerHTML="";
+      if(q.type==="money"){
+        const wrap=document.createElement("div");wrap.className="money-wrap";wrap.innerHTML='<span>$</span><input class="field" inputmode="decimal" type="number" min="0" step="100" placeholder="0" aria-label="Dollar amount">';const input=wrap.querySelector("input");input.value=answers[q.key]??"";input.addEventListener("input",()=>{answers[q.key]=Math.max(0,Number(input.value));validate()});$("answers").appendChild(wrap);setTimeout(()=>input.focus(),0);
+      }else q.options.forEach((o,i)=>{const b=document.createElement("button");b.type="button";b.className="option"+(answers[q.key]?.index===i?" selected":"");b.textContent=o.label;b.onclick=()=>{answers[q.key]={index:i,risk:o.risk,label:o.label};render()};$("answers").appendChild(b)});
+      $("back").style.visibility=step===0?"hidden":"visible";$("next").textContent=step===questions.length-1?"See my result":"Next";validate();
     }
-    message.textContent = noMessage;
-});
-</script>
-
+    function validate(){const q=questions[step];$("next").disabled=q.type==="money"?!(Number(answers[q.key])>0):!answers[q.key]}
+    $("back").onclick=()=>{if(step>0){step--;render()}};
+    $("next").onclick=()=>{if(step<questions.length-1){step++;render()}else showResult()};
+    function showResult(){
+      const income=Number(answers.income)||0,debt=Number(answers.debt)||0,debtPressure=Math.min(10,Math.round(debt/income*50));let risk=debtPressure;
+      questions.filter(q=>q.options).forEach(q=>risk+=answers[q.key]?.risk||0);risk=Math.min(100,risk);
+      const cautious=risk>=55?.23:risk>=30?.24:.25,target=income*cautious,max=income*.25;
+      let title,copy,color;if(risk>=55){title="High exposure";copy="Buying now could leave too little room for a job, immigration, repair, or moving shock. Strengthen the weak points before choosing a payment.";color="var(--red)"}else if(risk>=30){title="Proceed cautiously";copy="You have a workable base, but one or more risks could turn an affordable payment into a stressful one. Keep the payment conservative and build buffers.";color="var(--amber)"}else{title="Lower exposure";copy="Your answers show stronger buffers than many buyers. That does not make a house automatically affordable—the exact property and full payment still matter.";color="var(--green)"}
+      $("quiz").style.display="none";$("result").style.display="flex";$("score").textContent=risk;$("ring").style.background=`conic-gradient(${color} ${risk*3.6}deg,#253044 0)`;$("verdict").textContent=title;$("verdictCopy").textContent=copy;$("target").textContent=money(target);$("maximum").textContent=money(max);
+      const flags=[];if(debt/income>.15)flags.push("Monthly debt is already consuming a meaningful share of take-home pay.");questions.filter(q=>q.options&&answers[q.key]?.risk).sort((a,b)=>answers[b.key].risk-answers[a.key].risk).slice(0,3).forEach(q=>flags.push({emergency:"Emergency savings need strengthening before closing.",oneIncome:"The payment depends heavily on both incomes continuing.",status:"Immigration or work authorization uncertainty raises the need for liquidity.",horizon:"A short or uncertain holding period increases resale-cost risk.",repair:"A major repair could force new high-interest debt.",fullPayment:"The complete PITI + HOA payment has not been verified.",goals:"The purchase may crowd out retirement and other priorities.",exit:"There is no clear plan if relocation becomes necessary."}[q.key]));$("flags").innerHTML=(flags.length?flags:["No major red flags from these answers. Verify the property's exact payment and inspection."]).map(f=>`<div class="flag">${f}</div>`).join("");window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+      window.resultText=`Homebuyer Risk Check: ${risk}/100 (${title}). Safer monthly housing target: ${money(target)}; 25% ceiling: ${money(max)}. Educational estimate only.`
+    }
+    $("restart").onclick=()=>{step=0;Object.keys(answers).forEach(k=>delete answers[k]);$("result").style.display="none";$("quiz").style.display="block";render();window.scrollTo({top:0,behavior:"smooth"})};
+    $("copy").onclick=async()=>{await navigator.clipboard.writeText(window.resultText);$("copy").textContent="Copied";setTimeout(()=>$("copy").textContent="Copy result",1400)};
+    render();
+  </script>
 </body>
-</html> 
+</html>
