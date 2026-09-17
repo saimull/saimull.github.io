@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta name="description" content="A practical checklist of costs, credits, upgrades and contract terms to ask a new-construction builder about before signing.">
+  <title>New Construction Negotiation Checklist | Sai Builds Wealth</title>
+  <style>
+    :root{--bg:#09090b;--panel:#141416;--panel2:#1b1b1f;--text:#f7f4ec;--muted:#aaa8a1;--gold:#e7b84b;--gold2:#ffd978;--line:#303036;--green:#69d59b;--radius:18px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 85% -10%,#3c2b07 0,transparent 32%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+    a{color:inherit}.wrap{width:min(920px,calc(100% - 32px));margin:auto}
+    header{padding:54px 0 28px}
+    .brand{display:flex;align-items:center;gap:10px;color:var(--gold2);font-size:.83rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+    .brand-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px #e7b84b99}
+    h1{font-size:clamp(2.25rem,7vw,4.65rem);line-height:.98;letter-spacing:-.055em;margin:24px 0 18px;max-width:800px}
+    .gold{color:var(--gold2)}
+    .lead{max-width:690px;color:#d0cec7;font-size:clamp(1rem,2.2vw,1.2rem);margin:0}
+    .truth{margin:26px 0 0;padding:16px 18px;border:1px solid #5f4a1e;background:#201a0e;border-radius:14px;color:#e8ddc0}
+    .truth strong{color:var(--gold2)}
+    .toolbar{position:sticky;top:0;z-index:5;background:#09090be8;backdrop-filter:blur(16px);border-top:1px solid transparent;border-bottom:1px solid var(--line);padding:12px 0}
+    .toolbar-inner{display:flex;gap:10px;align-items:center}
+    .progress{flex:1;height:10px;background:#29292e;border-radius:99px;overflow:hidden}
+    .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .2s}
+    #count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.9rem;white-space:nowrap}
+    button{border:0;font:inherit;cursor:pointer}
+    .reset,.print{padding:9px 12px;border-radius:10px;color:var(--text);background:var(--panel2);border:1px solid var(--line);font-weight:700}
+    main{padding:32px 0 70px}
+    .intro{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px}
+    h2{font-size:1.55rem;margin:0}.hint{color:var(--muted);font-size:.92rem}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .section{background:linear-gradient(145deg,#171719,#111113);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
+    .section h3{margin:0;font-size:1.1rem;letter-spacing:-.02em}
+    .tag{font-size:.69rem;text-transform:uppercase;letter-spacing:.09em;font-weight:900;border:1px solid #6c5420;color:var(--gold2);padding:5px 7px;border-radius:99px;white-space:nowrap}
+    .tag.stage{color:#bfc3cd;border-color:#434650}
+    label{display:flex;gap:12px;align-items:flex-start;padding:12px 2px;border-top:1px solid #27272b;cursor:pointer}
+    label:first-of-type{border-top:0}
+    input[type=checkbox]{appearance:none;flex:0 0 21px;width:21px;height:21px;margin:1px 0 0;border:1.5px solid #68686f;border-radius:6px;background:#0d0d0f;display:grid;place-items:center}
+    input[type=checkbox]:checked{background:var(--gold);border-color:var(--gold)}
+    input[type=checkbox]:checked:after{content:"✓";color:#171107;font-weight:1000;font-size:15px}
+    label:has(input:checked) .item-title{text-decoration:line-through;color:#84827c}
+    .item-title{display:block;font-weight:760}.item-note{display:block;color:var(--muted);font-size:.84rem;margin-top:2px}
+    .order{margin-top:24px;border:1px solid #59471f;background:linear-gradient(145deg,#201a0d,#15130e);border-radius:var(--radius);padding:22px}
+    .order h2{color:var(--gold2);margin-bottom:10px}
+    .order ol{margin:0;padding-left:22px}.order li{padding:4px 0;color:#ded6c3}
+    .questions{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+    .questions ul{margin:13px 0 0;padding-left:20px;color:#d3d1ca}.questions li{padding:5px 0}
+    footer{border-top:1px solid var(--line);padding:24px 0 42px;color:var(--muted);font-size:.82rem}
+    footer strong{color:#d9d6ce}
+    @media(max-width:720px){header{padding-top:38px}.grid{grid-template-columns:1fr}.toolbar-inner{flex-wrap:wrap}.progress{order:3;flex-basis:100%}.intro{display:block}.hint{margin-top:6px}.print{display:none}.section{padding:18px}}
+    @media print{body{background:white;color:#111}.toolbar,.print,.reset{display:none}.wrap{width:100%}header{padding:10px 0 18px}.brand,.gold{color:#8a6500}.lead,.hint,.item-note,footer{color:#444}.truth,.section,.order,.questions{background:white;border-color:#bbb;break-inside:avoid}.grid{gap:10px}.section{padding:12px}main{padding:10px 0}.item-title{text-decoration:none!important;color:#111!important}}
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <div class="brand"><span class="brand-dot"></span>Sai Builds Wealth</div>
+    <h1>Stop negotiating only the <span class="gold">home price</span></h1>
+    <p class="lead">Use this checklist before signing a new-construction contract. Ask about every bucket, then compare the total value—not just the headline incentive.</p>
+    <div class="truth"><strong>Reality check:</strong> Everything below is potentially negotiable, not guaranteed. Your leverage is usually strongest on completed inventory, slow-selling lots, and near a builder’s month, quarter, or year end.</div>
+  </header>
+
+  <div class="toolbar">
+    <div class="wrap toolbar-inner">
+      <strong id="count">0 of 24 checked</strong>
+      <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+      <button class="reset" id="reset" type="button">Reset</button>
+      <button class="print" onclick="window.print()" type="button">Print / Save PDF</button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="intro">
+      <h2>Your negotiation list</h2>
+      <div class="hint">Tap each item after you ask the builder</div>
+    </div>
+
+    <div class="grid">
+      <section class="section">
+        <div class="section-head"><h3>Price & cash</h3><span class="tag">Start here</span></div>
+        <label><input type="checkbox"><span><span class="item-title">Purchase price</span><span class="item-note">More likely on completed spec or standing-inventory homes</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Closing-cost credit</span><span class="item-note">Confirm which costs the credit can legally cover</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Earnest-money deposit</span><span class="item-note">Ask about the amount, timing, refundability, and milestones</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Lot premium</span><span class="item-note">Request a reduction or waiver for the selected lot</span></span></label>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h3>Financing</h3><span class="tag">High value</span></div>
+        <label><input type="checkbox"><span><span class="item-title">Permanent rate buydown</span><span class="item-note">Compare the rate, APR, points, and loan fees</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Temporary rate buydown</span><span class="item-note">Know the payment after the reduced-rate period ends</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Lender fees</span><span class="item-note">Ask whether origination, processing, or underwriting fees can be reduced</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Outside-lender comparison</span><span class="item-note">Compare total cash to close and total loan cost—not rate alone</span></span></label>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h3>Upgrades & finishes</h3><span class="tag stage">Stage dependent</span></div>
+        <label><input type="checkbox"><span><span class="item-title">Design-center credit</span><span class="item-note">Flooring, cabinets, counters, tile, fixtures, and hardware</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Structural upgrades</span><span class="item-note">Patio, windows, doors, rooms, or garage options—usually early only</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Electrical upgrades</span><span class="item-note">Outlets, recessed lights, fan prewires, data drops, and EV circuit</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Appliance package</span><span class="item-note">Refrigerator, washer, dryer, or upgraded kitchen appliances</span></span></label>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h3>Move-in extras</h3><span class="tag">Easy asks</span></div>
+        <label><input type="checkbox"><span><span class="item-title">Blinds or window treatments</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Fence</span><span class="item-note">Confirm material, dimensions, gates, and HOA approval</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Landscaping and irrigation</span><span class="item-note">Ask exactly what is included and where</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Garage package</span><span class="item-note">Opener, remotes, keypads, storage, outlets, or epoxy</span></span></label>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h3>Fees & ownership costs</h3><span class="tag">Often missed</span></div>
+        <label><input type="checkbox"><span><span class="item-title">HOA dues and fees</span><span class="item-note">Ask about initiation, transfer, capital contribution, and prepaid dues</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Title and settlement fees</span><span class="item-note">Availability and negotiability vary by contract and location</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Property-tax districts</span><span class="item-note">Get the full estimated tax rate, including special districts or assessments</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Future community costs</span><span class="item-note">Ask about planned HOA increases, amenity fees, and unfinished infrastructure</span></span></label>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h3>Contract & protection</h3><span class="tag">Do not skip</span></div>
+        <label><input type="checkbox"><span><span class="item-title">Independent inspections</span><span class="item-note">Preserve access for phase, pre-drywall, and final inspections when applicable</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Financing and appraisal terms</span><span class="item-note">Builder contracts may limit buyer protections—read the exact language</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Closing date and extensions</span><span class="item-note">Ask who controls changes and what happens after delays</span></span></label>
+        <label><input type="checkbox"><span><span class="item-title">Warranty and punch-list terms</span><span class="item-note">Get coverage, exclusions, claim deadlines, and completion commitments in writing</span></span></label>
+      </section>
+    </div>
+
+    <section class="order">
+      <h2>Best order to negotiate</h2>
+      <ol>
+        <li>Identify the exact home, lot, construction stage, and builder deadline</li>
+        <li>Negotiate price, lot premium, and high-dollar credits first</li>
+        <li>Compare builder financing against an outside lender using the same loan assumptions</li>
+        <li>Ask for upgrades and move-in extras that cost you more than they cost the builder</li>
+        <li>Get every promise in the signed contract or addendum before paying a deposit</li>
+      </ol>
+    </section>
+
+    <section class="questions">
+      <h2>Ask this directly</h2>
+      <ul>
+        <li>“What additional incentive is available on this exact home if I sign by your deadline?”</li>
+        <li>“Can I use the incentive toward price, closing costs, rate, or upgrades—and which gives me the highest total value?”</li>
+        <li>“Which fees or deposits are nonrefundable, and under what exact conditions?”</li>
+        <li>“Please show every incentive and included upgrade in writing before I sign.”</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap"><strong>Educational use only.</strong> Not legal, tax, lending, or real-estate advice. Builder policies, contracts, incentives, and local rules vary. Verify all terms with qualified local professionals before signing.</div>
+  </footer>
+
+  <script>
+    const boxes=[...document.querySelectorAll('input[type="checkbox"]')];
+    const count=document.getElementById('count');
+    const bar=document.getElementById('bar');
+    const key='new-construction-negotiation-checklist-v1';
+    function update(){
+      const done=boxes.filter(b=>b.checked).length;
+      count.textContent=done+' of '+boxes.length+' checked';
+      bar.style.width=(done/boxes.length*100)+'%';
+      try{localStorage.setItem(key,JSON.stringify(boxes.map(b=>b.checked)))}catch(e){}
+    }
+    try{
+      const saved=JSON.parse(localStorage.getItem(key)||'[]');
+      saved.forEach((v,i)=>{if(boxes[i]) boxes[i].checked=!!v});
+    }catch(e){}
+    boxes.forEach(b=>b.addEventListener('change',update));
+    document.getElementById('reset').addEventListener('click',()=>{
+      if(confirm('Clear all checked items?')){boxes.forEach(b=>b.checked=false);update()}
+    });
+    update();
+  </script>
+</body>
+</html>
