@@ -1,6 +1,54 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gold & Silver Risk Index | SaiMull</title><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script><style>:root{color-scheme:dark;font-family:Inter,system-ui,Arial,sans-serif;background:#090d15;color:#f5f5f4}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1100px;margin:auto;padding:28px 18px 65px}header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.brand{color:#eac15e;font-size:12px;letter-spacing:2px;font-weight:800}h1{font-size:clamp(28px,5vw,46px);margin:12px 0 8px}p{color:#a8b1c2;line-height:1.6}.tabs{display:flex;gap:8px;margin:26px 0}.tabs button,.ranges button{background:#1b2332;color:#d7deea;border:1px solid #354052;border-radius:10px;padding:12px 23px;cursor:pointer;font-weight:700}.tabs button.active,.ranges button.active{background:#eac15e;color:#141414;border-color:#eac15e}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:#141c2a;border:1px solid #2b3545;border-radius:17px;padding:23px}.label{color:#9daabe;font-size:13px}.big{font-size:clamp(34px,6vw,60px);font-weight:800;margin:8px 0}.status{font-weight:700;color:#eac15e}.bar{height:13px;border-radius:10px;background:linear-gradient(90deg,#169d58,#7dcf58,#e8c448,#f58a36,#dc4545);position:relative;margin:24px 0 8px}.pointer{position:absolute;height:22px;width:4px;background:white;top:-5px;border-radius:4px;left:50%}.scale{display:flex;justify-content:space-between;font-size:11px;color:#9daabe}.chart-card{margin-top:16px}.charthead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.ranges{display:flex;gap:5px;flex-wrap:wrap}.ranges button{padding:7px 10px;font-size:12px}.chartbox{height:290px;margin-top:20px}.factor{margin-top:17px}.factor .top{display:flex;justify-content:space-between;font-size:14px}.track{height:7px;background:#333d4c;border-radius:8px;overflow:hidden;margin-top:9px}.fill{height:100%;background:#eac15e;border-radius:8px}.note{font-size:12px;color:#9daabe}.error{color:#ff9b9b}footer{margin-top:24px;font-size:12px;color:#8f9bac}a{color:#eac15e}@media(max-width:650px){.grid{grid-template-columns:1fr}.card{padding:17px}.chartbox{height:235px}}</style></head><body><main class="wrap"><header><div class="brand">SAIMULL.COM / TOOLS</div><div id="updated" class="label">Loading extended price history…</div></header><h1>Gold & Silver <span style="color:#eac15e">Risk Index</span></h1><p>A price-based, 0–1 risk thermometer. Higher values indicate more stressed or extended conditions, not a guaranteed correction.</p><div class="tabs"><button class="active" data-metal="silver">Silver · XAG</button><button data-metal="gold">Gold · XAU</button></div><div class="grid"><section class="card"><div class="label">Composite risk score</div><div class="big" id="score">—</div><div class="status" id="risklabel">Calculating…</div><div class="bar"><div class="pointer" id="pointer"></div></div><div class="scale"><span>0 · Lower</span><span>0.5 · Moderate</span><span>1 · Higher</span></div></section><section class="card"><div class="label">Latest reference price · USD / troy oz</div><div class="big" id="price">—</div><div class="label" id="priceDate">Awaiting price history</div><p class="note">Latest historical close, not necessarily a tradable real-time quote. Spot reference shown separately when available.</p><div id="spot" class="status"></div></section></div><section class="card chart-card"><div class="charthead"><strong>Historical risk score</strong><div class="ranges"><button data-range="1m">1M</button><button data-range="3m">3M</button><button class="active" data-range="1y">1Y</button><button data-range="3y">3Y</button><button data-range="5y">5Y</button></div></div><div class="chartbox"><canvas id="riskChart" aria-label="Historical risk line chart"></canvas></div><p class="note">Ranges show calendar years ending at the latest historical close. Ten years of source history provide warm-up before the displayed window. Older prices are sampled by the provider; recent one-year data has finer resolution.</p></section><section class="card chart-card"><strong>What's driving the score?</strong><div id="factors"></div></section><section class="card chart-card"><strong>How this works</strong><p>Both scores use RSI over 14 available observations (20%), extension relative to the mean of available prices in the past 200 calendar days (30%), and elapsed-time-adjusted sampled volatility over 30 days (25%).</p><p>Gold uses its own decline from the highest sampled close in the past 60 calendar days for the remaining 25%. This factor rises from 0 at the peak to 1 at a 20% decline and captures recent losses that can persist even after RSI and price extension fall.</p><p>Silver uses the inverse gold/silver ratio percentile over three years for the remaining 25%. It pairs each silver price with the latest available gold price, up to seven days old. Older history is sampled, so the scores can differ with sampling density.</p><p class="note">This is an exploratory composite, not a calibrated probability of loss. The weighting and thresholds have not been statistically validated. Do not use it alone to time trades or invest.</p><p id="error" class="error" role="alert"></p></section><footer>Market data: <a href="https://standardbullion.com/gold-price-api" target="_blank" rel="noopener">Standard Bullion</a>. Educational only; not financial advice. Data may be delayed or unavailable.</footer></main><script>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gold, Silver & Bitcoin Risk Index | SaiMull</title><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script><style>:root{color-scheme:dark;font-family:Inter,system-ui,Arial,sans-serif;background:#090d15;color:#f5f5f4}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1100px;margin:auto;padding:28px 18px 65px}header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.brand{color:#eac15e;font-size:12px;letter-spacing:2px;font-weight:800}h1{font-size:clamp(28px,5vw,46px);margin:12px 0 8px}p{color:#a8b1c2;line-height:1.6}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0}.tabs button,.ranges button{background:#1b2332;color:#d7deea;border:1px solid #354052;border-radius:10px;padding:12px 23px;cursor:pointer;font-weight:700}.tabs button{padding-inline:16px}.tabs button.active,.ranges button.active{background:#eac15e;color:#141414;border-color:#eac15e}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:#141c2a;border:1px solid #2b3545;border-radius:17px;padding:23px}.label{color:#9daabe;font-size:13px}.big{font-size:clamp(34px,6vw,60px);font-weight:800;margin:8px 0}.status{font-weight:700;color:#eac15e}.bar{height:13px;border-radius:10px;background:linear-gradient(90deg,#169d58,#7dcf58,#e8c448,#f58a36,#dc4545);position:relative;margin:24px 0 8px}.pointer{position:absolute;height:22px;width:4px;background:white;top:-5px;border-radius:4px;left:50%}.scale{display:flex;justify-content:space-between;font-size:11px;color:#9daabe}.chart-card{margin-top:16px}.charthead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.ranges{display:flex;gap:5px;flex-wrap:wrap}.ranges button{padding:7px 10px;font-size:12px}.chartbox{height:290px;margin-top:20px}.factor{margin-top:17px}.factor .top{display:flex;justify-content:space-between;font-size:14px}.track{height:7px;background:#333d4c;border-radius:8px;overflow:hidden;margin-top:9px}.fill{height:100%;background:#eac15e;border-radius:8px}.note{font-size:12px;color:#9daabe}.error{color:#ff9b9b}footer{margin-top:24px;font-size:12px;color:#8f9bac}a{color:#eac15e}@media(max-width:650px){.grid{grid-template-columns:1fr}.card{padding:17px}.chartbox{height:235px}}</style></head><body><main class="wrap"><header><div class="brand">SAIMULL.COM / TOOLS</div><div id="updated" class="label">Loading extended price history…</div></header><h1>Gold, Silver & Bitcoin <span style="color:#eac15e">Risk Index</span></h1><p>A price-based, 0–1 risk thermometer. Each score summarizes recent price conditions for that asset.</p><div class="tabs"><button class="active" data-metal="silver">Silver · XAG</button><button data-metal="gold">Gold · XAU</button><button data-metal="bitcoin">Bitcoin · BTC</button></div><div class="grid"><section class="card"><div class="label">Composite risk score</div><div class="big" id="score">—</div><div class="status" id="risklabel">Calculating…</div><div class="bar"><div class="pointer" id="pointer"></div></div><div class="scale"><span>0 · Lower</span><span>0.5 · Moderate</span><span>1 · Higher</span></div></section><section class="card"><div id="price-unit" class="label">Latest reference price · USD / troy oz</div><div class="big" id="price">—</div><div class="label" id="priceDate">Awaiting price history</div><p id="price-note" class="note">Latest historical close, not necessarily a tradable real-time quote. Spot reference shown separately when available.</p><div id="spot" class="status"></div></section></div><section class="card chart-card"><div class="charthead"><strong>Historical risk score</strong><div class="ranges"><button data-range="1m">1M</button><button data-range="3m">3M</button><button class="active" data-range="1y">1Y</button><button data-range="3y">3Y</button><button data-range="5y">5Y</button></div></div><div class="chartbox"><canvas id="riskChart" aria-label="Historical risk line chart"></canvas></div><p id="metals-chart-note" class="note">Ranges show calendar years ending at the latest historical close. Ten years of source history provide warm-up before the displayed window. Older prices are sampled by the provider; recent one-year data has finer resolution.</p><p id="bitcoin-chart-note" class="note" hidden>Bitcoin history uses daily BTC/USD closes in UTC. The chart shows up to five years after the initial 200-day calculation period.</p></section><section class="card chart-card"><strong>What's driving the score?</strong><div id="factors"></div></section><section class="card chart-card"><strong>How this works</strong><div id="metals-method"><p>Both metals scores use RSI over 14 available observations (20%), extension relative to the mean of available prices in the past 200 calendar days (30%), and elapsed-time-adjusted sampled volatility over 30 days (25%).</p><p>Gold uses its own decline from the highest sampled close in the past 60 calendar days for the remaining 25%. This factor rises from 0 at the peak to 1 at a 20% decline and captures recent losses that can persist even after RSI and price extension fall.</p><p>Silver uses the inverse gold/silver ratio percentile over three years for the remaining 25%. It pairs each silver price with the latest available gold price, up to seven days old. Older history is sampled, so the scores can differ with sampling density.</p></div><div id="bitcoin-method" hidden>
+<p>The Bitcoin score uses Coinbase BTC/USD daily closing prices.</p>
+<ul>
+<li><strong>Downside volatility (40%).</strong> Measures the size of down days over the past 30 daily returns. The annualized measure scores zero at 20% or below and reaches 1 at 85%.</li>
+<li><strong>90-day drawdown (35%).</strong> Measures the decline from Bitcoin’s highest daily close in the past 90 days. The factor reaches 1 at a 45% drawdown.</li>
+<li><strong>200-day trend weakness (25%).</strong> Measures how far Bitcoin trades below its 200-day average. The factor starts adding points below that average and reaches 1 at 35% below it.</li>
+</ul>
+</div><p class="note">This is an exploratory composite, not a calibrated probability of loss. The weighting and thresholds have not been statistically validated. Do not use it alone to time trades or invest.</p><p id="error" class="error" role="alert"></p></section><footer>Market data: <span id="metals-source"><a href="https://standardbullion.com/gold-price-api" target="_blank" rel="noopener">Standard Bullion</a></span><span id="bitcoin-source" hidden><a href="https://docs.cdp.coinbase.com/api-reference/exchange-api/rest-api/products/get-product-candles" target="_blank" rel="noopener">Coinbase Exchange BTC/USD</a></span>. Educational only; not financial advice. Data may be delayed or unavailable.</footer></main><script>
 const API='https://standardbullion.com';const data={};let metal='silver',range='1y',chart;const $=id=>document.getElementById(id);const clamp=x=>Math.max(0,Math.min(1,x));const avg=a=>a.reduce((s,v)=>s+v,0)/a.length;const fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(n);const percentile=(values,x)=>values.length?values.filter(v=>v<=x).length/values.length:0.5;
 const DAY = 86400000;
+const BITCOIN_API = 'https://api.exchange.coinbase.com/products/BTC-USD';
+let bitcoinLoading;
+let bitcoinQuote;
+const percent = value => (value * 100).toFixed(1) + '%';
+
+function calculateBitcoin(prices) {
+  const history = [];
+  let consecutiveDays = 1;
+  for (let i = 1; i < prices.length; i++) {
+    const current = prices[i];
+    consecutiveDays = current.time - prices[i - 1].time === DAY ? consecutiveDays + 1 : 1;
+    if (consecutiveDays < 200) continue;
+
+    let squaredLosses = 0;
+    for (let k = i - 29; k <= i; k++) {
+      const dailyReturn = Math.log(prices[k].price / prices[k - 1].price);
+      squaredLosses += Math.min(0, dailyReturn) ** 2;
+    }
+    const downsideVolatility = Math.sqrt(365 * squaredLosses / 30);
+    const peak = Math.max(...prices.slice(i - 89, i + 1).map(point => point.price));
+    const drawdown = 1 - current.price / peak;
+    const average = avg(prices.slice(i - 199, i + 1).map(point => point.price));
+    const belowAverage = 1 - current.price / average;
+    const trend = Math.abs(belowAverage) < .0005 ? 'At average'
+      : percent(Math.abs(belowAverage)) + (belowAverage > 0 ? ' below average' : ' above average');
+
+    const factors = [
+      {name: '30-day downside volatility', value: clamp((downsideVolatility - .20) / .65), weight: .40, detail: percent(downsideVolatility) + ' annualized'},
+      {name: '90-day drawdown', value: clamp(drawdown / .45), weight: .35, detail: percent(drawdown) + ' below peak'},
+      {name: '200-day trend weakness', value: clamp(belowAverage / .35), weight: .25, detail: trend},
+    ];
+    history.push({
+      day: current.day,
+      price: current.price,
+      score: factors.reduce((sum, factor) => sum + factor.value * factor.weight, 0),
+      factors,
+    });
+  }
+  return history;
+}
+
 
 function silverObservations() {
   const gold = data.gold || [];
@@ -78,23 +126,99 @@ function calculate(m) {
   }
   return out;
 }
-function render(){const series=calculate(metal);if (!series.length) {
+function render() {
+const bitcoin = metal === 'bitcoin';
+const series = bitcoin ? data.bitcoin || [] : calculate(metal);
+$('price-unit').textContent = 'Latest reference price · USD / ' + (bitcoin ? 'BTC' : 'troy oz');
+$('price-note').textContent = bitcoin
+  ? 'The index uses the latest completed UTC daily close.'
+  : 'Latest historical close, not necessarily a tradable real-time quote. Spot reference shown separately when available.';
+$('metals-chart-note').hidden = $('metals-method').hidden = $('metals-source').hidden = bitcoin;
+$('bitcoin-chart-note').hidden = $('bitcoin-method').hidden = $('bitcoin-source').hidden = !bitcoin;
+if (!series.length) {
   $('score').textContent = '—';
   $('price').textContent = '—';
   $('priceDate').textContent = 'Historical close unavailable';
-  $('risklabel').textContent = 'Unavailable';
+  $('risklabel').textContent = bitcoin && bitcoinLoading ? 'Loading Bitcoin…' : 'Unavailable';
   $('pointer').style.visibility = 'hidden';
   $('factors').replaceChildren();
   chart?.destroy();
   chart = undefined;
-  $('error').textContent = metal === 'gold'
+  $('error').textContent = bitcoin
+    ? bitcoinLoading ? '' : 'Bitcoin price history is unavailable. Select the Bitcoin tab again to retry.'
+    : metal === 'gold'
     ? 'Insufficient gold price history to calculate the index.'
     : 'Insufficient gold and silver price history to calculate the index.';
   return;
 }
 $('pointer').style.visibility = 'visible';
-const last=series.at(-1);$('score').textContent=last.score.toFixed(2);$('price').textContent=fmt(last.price);$('priceDate').textContent='Historical close: '+last.day;$('risklabel').textContent=last.score<.25?'Lower risk':last.score<.5?'Moderate risk':last.score<.75?'Elevated risk':'High risk';$('pointer').style.left=(last.score*100)+'%';$('factors').innerHTML=last.factors.map(f=>`<div class="factor"><div class="top"><span>${f.name} <small style="color:#94a3b8">(${Math.round(f.weight*100)}%)</small></span><strong>${f.value.toFixed(2)}</strong></div><div class="track"><div class="fill" style="width:${f.value*100}%"></div></div></div>`).join('');let cutoff=new Date(last.day+'T00:00:00Z');if(range.endsWith('y'))cutoff.setUTCFullYear(cutoff.getUTCFullYear()-parseInt(range));else cutoff.setUTCMonth(cutoff.getUTCMonth()-parseInt(range));let sub=series.filter(x=>Date.parse(x.day)>=cutoff.getTime());if(chart)chart.destroy();chart=new Chart($('riskChart'),{type:'line',data:{labels:sub.map(x=>x.day),datasets:[{data:sub.map(x=>x.score),borderColor:'#eac15e',backgroundColor:'rgba(234,193,94,.08)',fill:true,borderWidth:2,pointRadius:0,tension:.15}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'Risk score: '+c.parsed.y.toFixed(3)}}},scales:{y:{min:0,max:1,ticks:{color:'#a8b1c2'},grid:{color:'#2b3545'}},x:{ticks:{color:'#a8b1c2',maxTicksLimit:6},grid:{display:false}}}}});$('error').textContent=''}
+const last=series.at(-1);$('score').textContent=last.score.toFixed(2);$('price').textContent=fmt(last.price);$('priceDate').textContent='Historical close: '+last.day;$('risklabel').textContent=last.score<.25?'Lower risk':last.score<.5?'Moderate risk':last.score<.75?'Elevated risk':'High risk';$('pointer').style.left=(last.score*100)+'%';$('factors').innerHTML=last.factors.map(f=>`<div class="factor"><div class="top"><span>${f.name} <small style="color:#94a3b8">(${Math.round(f.weight*100)}%)</small></span><strong>${f.value.toFixed(2)}</strong></div><div class="track"><div class="fill" style="width:${f.value*100}%"></div></div>${f.detail ? `<div class="note">${f.detail}</div>` : ''}</div>`).join('');let cutoff=new Date(last.day+'T00:00:00Z');if(range.endsWith('y'))cutoff.setUTCFullYear(cutoff.getUTCFullYear()-parseInt(range));else cutoff.setUTCMonth(cutoff.getUTCMonth()-parseInt(range));let sub=series.filter(x=>Date.parse(x.day)>=cutoff.getTime());if(chart)chart.destroy();chart=new Chart($('riskChart'),{type:'line',data:{labels:sub.map(x=>x.day),datasets:[{data:sub.map(x=>x.score),borderColor:'#eac15e',backgroundColor:'rgba(234,193,94,.08)',fill:true,borderWidth:2,pointRadius:0,tension:.15}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'Risk score: '+c.parsed.y.toFixed(3)}}},scales:{y:{min:0,max:1,ticks:{color:'#a8b1c2'},grid:{color:'#2b3545'}},x:{ticks:{color:'#a8b1c2',maxTicksLimit:6},grid:{display:false}}}}});$('error').textContent=''}
 async function fetchJson(url){let r=await fetch(url);if(!r.ok)throw Error('Market data request failed (HTTP '+r.status+').');return r.json()}
+async function loadBitcoinHistory() {
+  const today = Math.floor(Date.now() / DAY) * DAY;
+  // Each request stays below Coinbase’s 300-candle limit.
+  const chunk = 280 * DAY;
+  const pages = await Promise.all(Array.from({length: 8}, (_, index) => {
+    const end = today - index * chunk;
+    const query = new URLSearchParams({
+      granularity: '86400',
+      start: new Date(end - chunk).toISOString(),
+      end: new Date(end).toISOString(),
+    });
+    return fetchJson(`${BITCOIN_API}/candles?${query}`);
+  }));
+  const byTime = new Map();
+  for (const [index, candles] of pages.entries()) {
+    if (!Array.isArray(candles)) throw Error('Unexpected Bitcoin candle response.');
+    const end = today - index * chunk;
+    for (const [seconds, , , , price] of candles) {
+      const time = seconds * 1000;
+      if (Number.isFinite(time) && time % DAY === 0 && time >= end - chunk && time < end
+          && Number.isFinite(price) && price > 0) {
+        byTime.set(time, {time, price, day: new Date(time).toISOString().slice(0, 10)});
+      }
+    }
+  }
+  const prices = [...byTime.values()].sort((a, b) => a.time - b.time);
+  const scores = calculateBitcoin(prices);
+  if (!scores.length || today - Date.parse(scores.at(-1).day) > 2 * DAY) {
+    throw Error('Recent Bitcoin daily closes are missing.');
+  }
+  return scores;
+}
+
+function loadBitcoin() {
+  if (bitcoinLoading || data.bitcoin) return;
+  $('updated').textContent = 'Loading Bitcoin price history…';
+  void fetchJson(`${BITCOIN_API}/ticker`).then(quote => {
+    bitcoinQuote = quote;
+  }).catch(() => {}).finally(() => {
+    if (metal === 'bitcoin') showSpot();
+  });
+  bitcoinLoading = loadBitcoinHistory().then(scores => {
+    data.bitcoin = scores;
+  }).catch(() => {
+    // The tab stays available for a retry.
+  }).finally(() => {
+    bitcoinLoading = undefined;
+    if (metal === 'bitcoin') {
+      updateStatus();
+      render();
+    }
+  });
+}
+
+function updateStatus() {
+  if (metal === 'bitcoin') {
+    const last = data.bitcoin?.at(-1);
+    $('updated').textContent = last ? 'Bitcoin data through ' + last.day + ' UTC'
+      : bitcoinLoading ? 'Loading Bitcoin price history…' : 'Bitcoin data unavailable';
+  } else {
+    $('updated').textContent = data.gold?.length || data.silver?.length
+      ? 'Historical data loaded' : 'Data unavailable';
+  }
+}
+
 async function loadHistory(symbol) {
   const [long, recent] = await Promise.all(['10y', '1y'].map(range =>
     fetchJson(`${API}/api/v1/market/history?metal=${symbol}&range=${range}`)
@@ -112,16 +236,22 @@ async function init() {
     data[name] = await loadHistory(symbol);
   }));
   render();
-  $('updated').textContent = data.gold?.length || data.silver?.length
-    ? 'Historical data loaded · ' + new Date().toLocaleString()
-    : 'Data unavailable';
+  updateStatus();
   try {
     window.spotData = await fetchJson(`${API}/api/v1/spot-prices`);
     showSpot();
   } catch (error) {
-    $('spot').textContent = 'Spot quote unavailable; historical close shown.';
+    showSpot();
   }
 }
-function showSpot(){const x=window.spotData;if(!x)return;const symbol=metal==='gold'?'XAU':'XAG';const item=x.prices?.[symbol]||x.metals?.find?.(m=>m.symbol===symbol);const ask=Number(item?.ask),bid=Number(item?.bid);if(Number.isFinite(ask)&&ask>0){$('spot').textContent='Spot ask: '+fmt(ask)+(Number.isFinite(bid)&&bid>0?' · Bid: '+fmt(bid):'');const stamp=item.updatedAt||x.updatedAt;if(stamp)$('spot').textContent+=' · '+new Date(stamp).toLocaleString()}else $('spot').textContent='Spot quote unavailable; historical close shown.'}
-document.querySelectorAll('[data-metal]').forEach(b=>b.onclick=()=>{metal=b.dataset.metal;document.querySelectorAll('[data-metal]').forEach(x=>x.classList.toggle('active',x===b));render();showSpot()});document.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>{range=b.dataset.range;document.querySelectorAll('[data-range]').forEach(x=>x.classList.toggle('active',x===b));render()});init();
+function showSpot() {
+  if (metal === 'bitcoin') {
+    const price = Number(bitcoinQuote?.price);
+    $('spot').textContent = Number.isFinite(price) && price > 0
+      ? 'Last Coinbase trade: ' + fmt(price) + (bitcoinQuote.time ? ' · ' + new Date(bitcoinQuote.time).toLocaleString() : '')
+      : '';
+    return;
+  }
+  const x=window.spotData;if(!x){$('spot').textContent='';return;}const symbol=metal==='gold'?'XAU':'XAG';const item=x.prices?.[symbol]||x.metals?.find?.(m=>m.symbol===symbol);const ask=Number(item?.ask),bid=Number(item?.bid);if(Number.isFinite(ask)&&ask>0){$('spot').textContent='Spot ask: '+fmt(ask)+(Number.isFinite(bid)&&bid>0?' · Bid: '+fmt(bid):'');const stamp=item.updatedAt||x.updatedAt;if(stamp)$('spot').textContent+=' · '+new Date(stamp).toLocaleString()}else $('spot').textContent='Spot quote unavailable; historical close shown.'}
+document.querySelectorAll('[data-metal]').forEach(b=>b.onclick=()=>{metal=b.dataset.metal;if(metal==='bitcoin')loadBitcoin();updateStatus();document.querySelectorAll('[data-metal]').forEach(x=>x.classList.toggle('active',x===b));render();showSpot()});document.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>{range=b.dataset.range;document.querySelectorAll('[data-range]').forEach(x=>x.classList.toggle('active',x===b));render()});init();
 </script></body></html>
